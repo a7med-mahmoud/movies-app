@@ -9,7 +9,7 @@ interface MovieCardProps {
   movie: Movie;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
   return (
     <ImageBackground
       source={{ uri: getImage(movie.poster_path) }}
@@ -24,7 +24,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       </LinearGradient>
     </ImageBackground>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
