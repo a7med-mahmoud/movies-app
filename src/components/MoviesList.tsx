@@ -48,8 +48,7 @@ const MoviesList: React.FC<MoviesListProps> = ({
 
 const styles = StyleSheet.create({
   list: {
-    // to remove the gap from the edges of the screen
-    margin: -5,
+    padding: 10,
   },
 });
 
