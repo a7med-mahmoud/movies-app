@@ -3,12 +3,13 @@ import {
   ActivityIndicator,
   FlatList,
   ListRenderItem,
-  Text,
+  StyleSheet,
 } from 'react-native';
 
 import type { Movie } from '../hooks/use-movies';
 import Colors from '../theme/colors';
 import ErrorBox from './ErrorBox';
+import MovieCard from './MovieCard';
 
 interface MoviesListProps {
   movies: Movie[];
@@ -22,8 +23,11 @@ const MoviesList: React.FC<MoviesListProps> = ({
   error,
 }) => {
   const renderItem: ListRenderItem<Movie> = useCallback(({ item }) => {
-    // TODO: change to a MovieCard component
-    return <Text>{item.title}</Text>;
+    return <MovieCard movie={item} />;
+  }, []);
+
+  const keyExtractor = useCallback((item: Movie) => {
+    return item.id.toString();
   }, []);
 
   if (isLoading) {
@@ -34,7 +38,22 @@ const MoviesList: React.FC<MoviesListProps> = ({
     return <ErrorBox error={error} />;
   }
 
-  return <FlatList data={movies} renderItem={renderItem} />;
+  return (
+    <FlatList
+      data={movies}
+      keyExtractor={keyExtractor}
+      renderItem={renderItem}
+      style={styles.list}
+      numColumns={2}
+    />
+  );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    // to remove the gap from the edges of the screen
+    margin: -5,
+  },
+});
 
 export default MoviesList;
