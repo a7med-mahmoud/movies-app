@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { SharedElement } from 'react-navigation-shared-element';
+import LinearGradient from 'react-native-linear-gradient';
 
 import type { Movie } from '../hooks/use-movies';
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
 import getImage from '../utils/get-image';
-import { SharedElement } from 'react-navigation-shared-element';
 
 interface MovieCardProps {
   movie: Movie;
