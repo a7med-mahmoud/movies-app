@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, Reducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 
 export interface Movie {
   id: number;
@@ -6,8 +6,6 @@ export interface Movie {
   overview: string;
   poster_path?: string | null;
   release_date: string;
-  vote_average: number;
-  isByUser: boolean;
 }
 
 // Could've added the `API_KEY` in an env file for the seek of security
@@ -15,26 +13,26 @@ export interface Movie {
 const API_KEY = 'acea91d2bff1c53e6604e4985b6989e2';
 const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
 
-const FETCH_INIT = 'FETCH_INIT';
+export const FETCH_INIT = 'FETCH_INIT';
+export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const FETCH_FAILURE = 'FETCH_FAILURE';
 type FetchInitAction = { type: typeof FETCH_INIT };
-const FETCH_SUCCESS = 'FETCH_SUCCESS';
 type FetchSccessAction = { type: typeof FETCH_SUCCESS; payload: Movie[] };
-const FETCH_FAILURE = 'FETCH_FAILURE';
 type FetchFailureAction = { type: typeof FETCH_FAILURE; payload: string };
-type Action = FetchInitAction | FetchSccessAction | FetchFailureAction;
+export type Action = FetchInitAction | FetchSccessAction | FetchFailureAction;
 
-interface State {
+export interface State {
   movies: Movie[];
   isLoading: boolean;
   error: string | null;
 }
-const initialState: State = {
+export const initialState: State = {
   movies: [],
   isLoading: true,
   error: null,
 };
 
-export const reducer: Reducer<State, Action> = (state, action) => {
+export function reducer(state = initialState, action: Action) {
   switch (action.type) {
     case FETCH_INIT:
       return {
@@ -57,7 +55,7 @@ export const reducer: Reducer<State, Action> = (state, action) => {
     default:
       return state;
   }
-};
+}
 
 function useMovies() {
   const [state, dispatch] = useReducer(reducer, initialState);
