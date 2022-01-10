@@ -11,6 +11,7 @@ import type { Movie } from '../hooks/use-movies';
 import ErrorBox from './ErrorBox';
 import Loading from './Loading';
 import MovieCard from './MovieCard';
+import NoMovies from './NoMovies';
 
 interface MoviesListProps {
   allMovies: Movie[];
@@ -45,6 +46,7 @@ const renderSection: ListRenderItem<{
       onEndReachedThreshold={0.5}
       onEndReached={item.onLoadMore}
       ListFooterComponent={isLoadingMore ? Loading : null}
+      ListEmptyComponent={NoMovies}
     />
   );
 };
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     padding: 15,
-    backgroundColor: '#eee',
+    backgroundColor: '#f2f2f2',
   },
 });
 
