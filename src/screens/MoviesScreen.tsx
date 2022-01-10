@@ -6,7 +6,14 @@ import useMovies from '../hooks/use-movies';
 const MoviesScreen: React.FC = () => {
   const { movies, isLoading, error } = useMovies();
 
-  return <MoviesList movies={movies} isLoading={isLoading} error={error} />;
+  return (
+    <MoviesList
+      allMovies={movies}
+      userMovies={[]} // TODO: add user movies
+      isLoading={isLoading}
+      error={error}
+    />
+  );
 };
 
 export default MoviesScreen;

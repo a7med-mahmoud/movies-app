@@ -3,7 +3,9 @@ import {
   ActivityIndicator,
   FlatList,
   ListRenderItem,
+  SectionList,
   StyleSheet,
+  Text,
 } from 'react-native';
 
 import type { Movie } from '../hooks/use-movies';
@@ -12,7 +14,8 @@ import ErrorBox from './ErrorBox';
 import MovieCard from './MovieCard';
 
 interface MoviesListProps {
-  movies: Movie[];
+  allMovies: Movie[];
+  userMovies: Movie[];
   isLoading: boolean;
   error: string | null;
 }
@@ -21,12 +24,30 @@ const keyExtractor = (item: Movie) => item.id.toString();
 const renderItem: ListRenderItem<Movie> = ({ item }) => (
   <MovieCard movie={item} />
 );
+const renderSection: ListRenderItem<{ movies: Movie[] }> = ({ item }) => (
+  <FlatList
+    data={item.movies}
+    keyExtractor={keyExtractor}
+    renderItem={renderItem}
+    numColumns={2}
+    style={styles.list}
+  />
+);
+const renderSectionHeader = (info: { section: { title: string } }) => (
+  <Text style={styles.title}>{info.section.title}</Text>
+);
 
 const MoviesList: React.FC<MoviesListProps> = ({
-  movies,
+  allMovies,
+  userMovies,
   isLoading,
   error,
 }) => {
+  const sections = [
+    { title: 'My Movies', data: [{ movies: userMovies }] },
+    { title: 'All Movies', data: [{ movies: allMovies }] },
+  ];
+
   if (isLoading) {
     return <ActivityIndicator size="large" color={Colors.primary} />;
   }
@@ -36,19 +57,24 @@ const MoviesList: React.FC<MoviesListProps> = ({
   }
 
   return (
-    <FlatList
-      data={movies}
-      keyExtractor={keyExtractor}
-      renderItem={renderItem}
-      style={styles.list}
-      numColumns={2}
+    <SectionList
+      sections={sections}
+      renderSectionHeader={renderSectionHeader}
+      renderItem={renderSection}
     />
   );
 };
 
 const styles = StyleSheet.create({
   list: {
-    padding: 10,
+    paddingHorizontal: 10,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
+    padding: 15,
+    backgroundColor: '#eee',
   },
 });
 
