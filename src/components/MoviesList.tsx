@@ -26,8 +26,8 @@ const renderItem: ListRenderItem<Movie> = ({ item }) => (
 );
 const renderSection: ListRenderItem<{
   movies: Movie[];
-  isLoading: boolean;
-  onLoadMore: () => void;
+  isLoading?: boolean;
+  onLoadMore?: () => void;
 }> = ({ item }) => {
   const isLoadingMore = item.isLoading && item.movies.length > 0;
 
@@ -60,7 +60,7 @@ const MoviesList: React.FC<MoviesListProps> = ({
   onLoadMore,
 }) => {
   const sections = [
-    { title: 'My Movies', data: [{ movies: userMovies, isLoading: false }] },
+    { title: 'My Movies', data: [{ movies: userMovies }] },
     {
       title: 'All Movies',
       data: [{ movies: allMovies, isLoading, onLoadMore }],
