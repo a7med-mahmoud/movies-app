@@ -1,9 +1,14 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 
-import RootNavigator from './navigation/RootNavigator';
+import MoviesNavigator from './navigation/MoviesNavigator';
 
 const App: React.FC = () => {
-  return <RootNavigator />;
+  return (
+    <NavigationContainer>
+      <MoviesNavigator />
+    </NavigationContainer>
+  );
 };
 
 export default App;
