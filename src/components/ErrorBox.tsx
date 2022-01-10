@@ -10,7 +10,9 @@ interface ErrorBoxProps {
 const ErrorBox: React.FC<ErrorBoxProps> = React.memo(({ error }) => {
   return (
     <View style={styles.box}>
-      <Text style={styles.text}>{error}</Text>
+      <Text style={styles.text} testID="error-text">
+        {error}
+      </Text>
     </View>
   );
 });
