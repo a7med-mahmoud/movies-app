@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer, Reducer } from 'react';
 
 export interface Movie {
   id: number;
@@ -15,10 +15,52 @@ export interface Movie {
 const API_KEY = 'acea91d2bff1c53e6604e4985b6989e2';
 const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
 
+const FETCH_INIT = 'FETCH_INIT';
+type FetchInitAction = { type: typeof FETCH_INIT };
+const FETCH_SUCCESS = 'FETCH_SUCCESS';
+type FetchSccessAction = { type: typeof FETCH_SUCCESS; payload: Movie[] };
+const FETCH_FAILURE = 'FETCH_FAILURE';
+type FetchFailureAction = { type: typeof FETCH_FAILURE; payload: string };
+type Action = FetchInitAction | FetchSccessAction | FetchFailureAction;
+
+interface State {
+  movies: Movie[];
+  isLoading: boolean;
+  error: string | null;
+}
+const initialState: State = {
+  movies: [],
+  isLoading: true,
+  error: null,
+};
+
+export const reducer: Reducer<State, Action> = (state, action) => {
+  switch (action.type) {
+    case FETCH_INIT:
+      return {
+        isLoading: true,
+        error: null,
+        movies: [],
+      };
+    case FETCH_SUCCESS:
+      return {
+        isLoading: false,
+        error: null,
+        movies: action.payload,
+      };
+    case FETCH_FAILURE:
+      return {
+        isLoading: false,
+        error: action.payload,
+        movies: [],
+      };
+    default:
+      return state;
+  }
+};
+
 function useMovies() {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const fetchMovies = useCallback(async () => {
     try {
@@ -26,16 +68,21 @@ function useMovies() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.status_message || 'Something went wrong!');
-        return setIsLoading(false);
+        return dispatch({
+          type: FETCH_FAILURE,
+          payload: data.status_message || 'Something went wrong',
+        });
       }
 
-      setMovies(data.results);
-      setError(null);
-      setIsLoading(false);
+      dispatch({
+        type: FETCH_SUCCESS,
+        payload: data.results,
+      });
     } catch (err) {
-      setError('Something went wrong!');
-      setIsLoading(false);
+      dispatch({
+        type: FETCH_FAILURE,
+        payload: 'Something went wrong',
+      });
     }
   }, []);
 
@@ -43,7 +90,7 @@ function useMovies() {
     fetchMovies();
   }, [fetchMovies]);
 
-  return { movies, isLoading, error };
+  return state;
 }
 
 export default useMovies;
