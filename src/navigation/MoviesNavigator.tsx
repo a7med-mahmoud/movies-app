@@ -19,6 +19,7 @@ const MoviesNavigator = () => {
       <Stack.Screen
         name="MovieDetails"
         component={MovieDetailsScreen}
+        options={{ headerTitle: 'Movie Details' }}
         sharedElements={route => [`movie.${route.params.movie.id}.poster`]}
       />
     </Stack.Navigator>
