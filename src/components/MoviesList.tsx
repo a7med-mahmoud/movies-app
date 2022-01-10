@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   ListRenderItem,
   SectionList,
@@ -9,8 +8,8 @@ import {
 } from 'react-native';
 
 import type { Movie } from '../hooks/use-movies';
-import Colors from '../theme/colors';
 import ErrorBox from './ErrorBox';
+import Loading from './Loading';
 import MovieCard from './MovieCard';
 
 interface MoviesListProps {
@@ -18,21 +17,37 @@ interface MoviesListProps {
   userMovies: Movie[];
   isLoading: boolean;
   error: string | null;
+  onLoadMore: () => void;
 }
 
 const keyExtractor = (item: Movie) => item.id.toString();
 const renderItem: ListRenderItem<Movie> = ({ item }) => (
   <MovieCard movie={item} />
 );
-const renderSection: ListRenderItem<{ movies: Movie[] }> = ({ item }) => (
-  <FlatList
-    data={item.movies}
-    keyExtractor={keyExtractor}
-    renderItem={renderItem}
-    numColumns={2}
-    style={styles.list}
-  />
-);
+const renderSection: ListRenderItem<{
+  movies: Movie[];
+  isLoading: boolean;
+  onLoadMore: () => void;
+}> = ({ item }) => {
+  const isLoadingMore = item.isLoading && item.movies.length > 0;
+
+  if (item.isLoading && !isLoadingMore) {
+    return <Loading large />;
+  }
+
+  return (
+    <FlatList
+      style={styles.list}
+      data={item.movies}
+      keyExtractor={keyExtractor}
+      renderItem={renderItem}
+      numColumns={2}
+      onEndReachedThreshold={0.5}
+      onEndReached={item.onLoadMore}
+      ListFooterComponent={isLoadingMore ? Loading : null}
+    />
+  );
+};
 const renderSectionHeader = (info: { section: { title: string } }) => (
   <Text style={styles.title}>{info.section.title}</Text>
 );
@@ -42,15 +57,15 @@ const MoviesList: React.FC<MoviesListProps> = ({
   userMovies,
   isLoading,
   error,
+  onLoadMore,
 }) => {
   const sections = [
-    { title: 'My Movies', data: [{ movies: userMovies }] },
-    { title: 'All Movies', data: [{ movies: allMovies }] },
+    { title: 'My Movies', data: [{ movies: userMovies, isLoading: false }] },
+    {
+      title: 'All Movies',
+      data: [{ movies: allMovies, isLoading, onLoadMore }],
+    },
   ];
-
-  if (isLoading) {
-    return <ActivityIndicator size="large" color={Colors.primary} />;
-  }
 
   if (error) {
     return <ErrorBox error={error} />;

@@ -25,32 +25,39 @@ export interface State {
   movies: Movie[];
   isLoading: boolean;
   error: string | null;
+  nextPage: number;
 }
 export const initialState: State = {
   movies: [],
-  isLoading: true,
+  isLoading: false,
   error: null,
+  nextPage: 1,
 };
 
 export function reducer(state = initialState, action: Action) {
   switch (action.type) {
     case FETCH_INIT:
       return {
+        ...state,
         isLoading: true,
         error: null,
-        movies: [],
       };
     case FETCH_SUCCESS:
       return {
+        ...state,
         isLoading: false,
         error: null,
-        movies: action.payload,
+        nextPage: state.nextPage + 1,
+        movies:
+          state.nextPage === 1
+            ? action.payload
+            : [...state.movies, ...action.payload],
       };
     case FETCH_FAILURE:
       return {
+        ...state,
         isLoading: false,
         error: action.payload,
-        movies: [],
       };
     default:
       return state;
@@ -61,8 +68,14 @@ function useMovies() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const fetchMovies = useCallback(async () => {
+    if (state.isLoading) {
+      return;
+    }
+
+    dispatch({ type: FETCH_INIT });
+
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(`${API_URL}&page=${state.nextPage}`);
       const data = await res.json();
 
       if (!res.ok) {
@@ -82,13 +95,14 @@ function useMovies() {
         payload: 'Something went wrong',
       });
     }
-  }, []);
+  }, [state.nextPage, state.isLoading]);
 
   useEffect(() => {
     fetchMovies();
-  }, [fetchMovies]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  return state;
+  return { ...state, fetchMovies };
 }
 
 export default useMovies;
