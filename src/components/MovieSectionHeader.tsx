@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+import AddMovie from './AddMovie';
+
 interface MovieSectionHeaderProps {
   title: string;
 }
@@ -10,7 +12,7 @@ const MovieSectionHeader: React.FC<MovieSectionHeaderProps> = React.memo(
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
-        {/* {title === 'My Movies' && <AddMovie />} */}
+        {title === 'My Movies' && <AddMovie />}
       </View>
     );
   },
@@ -19,15 +21,14 @@ const MovieSectionHeader: React.FC<MovieSectionHeaderProps> = React.memo(
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: '#f2f2f2',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
     padding: 15,
-    backgroundColor: '#f2f2f2',
   },
 });
 
