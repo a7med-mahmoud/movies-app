@@ -4,13 +4,13 @@ import {
   ListRenderItem,
   SectionList,
   StyleSheet,
-  Text,
 } from 'react-native';
 
 import type { Movie } from '../hooks/use-movies';
 import ErrorBox from './ErrorBox';
 import Loading from './Loading';
 import MovieCard from './MovieCard';
+import MovieSectionHeader from './MovieSectionHeader';
 import NoMovies from './NoMovies';
 
 interface MoviesListProps {
@@ -51,7 +51,7 @@ const renderSection: ListRenderItem<{
   );
 };
 const renderSectionHeader = (info: { section: { title: string } }) => (
-  <Text style={styles.title}>{info.section.title}</Text>
+  <MovieSectionHeader title={info.section.title} />
 );
 
 const MoviesList: React.FC<MoviesListProps> = ({
@@ -85,13 +85,6 @@ const MoviesList: React.FC<MoviesListProps> = ({
 const styles = StyleSheet.create({
   list: {
     paddingHorizontal: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'black',
-    padding: 15,
-    backgroundColor: '#f2f2f2',
   },
 });
 
