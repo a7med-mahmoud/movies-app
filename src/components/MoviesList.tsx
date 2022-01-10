@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -17,19 +17,16 @@ interface MoviesListProps {
   error: string | null;
 }
 
+const keyExtractor = (item: Movie) => item.id.toString();
+const renderItem: ListRenderItem<Movie> = ({ item }) => (
+  <MovieCard movie={item} />
+);
+
 const MoviesList: React.FC<MoviesListProps> = ({
   movies,
   isLoading,
   error,
 }) => {
-  const renderItem: ListRenderItem<Movie> = useCallback(({ item }) => {
-    return <MovieCard movie={item} />;
-  }, []);
-
-  const keyExtractor = useCallback((item: Movie) => {
-    return item.id.toString();
-  }, []);
-
   if (isLoading) {
     return <ActivityIndicator size="large" color={Colors.primary} />;
   }
