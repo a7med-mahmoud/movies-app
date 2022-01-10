@@ -17,19 +17,26 @@ const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`
 
 function useMovies() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchMovies = useCallback(async () => {
-    const res = await fetch(API_URL);
-    const data = await res.json();
+    try {
+      const res = await fetch(API_URL);
+      const data = await res.json();
 
-    if (!res.ok) {
-      setError(data.status_message || 'Something went wrong!');
-      return setIsLoading(false);
+      if (!res.ok) {
+        setError(data.status_message || 'Something went wrong!');
+        return setIsLoading(false);
+      }
+
+      setMovies(data.results);
+      setError(null);
+      setIsLoading(false);
+    } catch (err) {
+      setError('Something went wrong!');
+      setIsLoading(false);
     }
-
-    setMovies(data.results);
   }, []);
 
   useEffect(() => {
