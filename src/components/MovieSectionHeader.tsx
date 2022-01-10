@@ -12,6 +12,7 @@ const MovieSectionHeader: React.FC<MovieSectionHeaderProps> = React.memo(
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
+        {/* TODO: handle add movie on AddMovie button */}
         {title === 'My Movies' && <AddMovie />}
       </View>
     );
