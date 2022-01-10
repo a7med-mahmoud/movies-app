@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ImageBackground, StyleSheet, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -10,6 +10,11 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
+  const date = useMemo(
+    () => new Date(movie.release_date).toLocaleDateString(),
+    [movie.release_date],
+  );
+
   return (
     <ImageBackground
       source={{ uri: getImage(movie.poster_path) }}
@@ -18,6 +23,7 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
         colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']}
         style={styles.detailsContainer}>
         <Text style={styles.title}>{movie.title}</Text>
+        <Text style={styles.date}>{date}</Text>
         <Text style={styles.overview} numberOfLines={3}>
           {movie.overview}
         </Text>
@@ -46,6 +52,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  date: {
+    color: 'white',
+    fontSize: 14,
     marginBottom: 10,
   },
   overview: {
