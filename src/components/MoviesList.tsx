@@ -62,10 +62,13 @@ const MoviesList: React.FC<MoviesListProps> = ({
   onLoadMore,
 }) => {
   const sections = [
-    { title: 'My Movies', data: [{ movies: userMovies }] },
+    {
+      title: 'My Movies',
+      data: [{ key: 'user-movies', movies: userMovies }],
+    },
     {
       title: 'All Movies',
-      data: [{ movies: allMovies, isLoading, onLoadMore }],
+      data: [{ key: 'all-movies', movies: allMovies, isLoading, onLoadMore }],
     },
   ];
 
