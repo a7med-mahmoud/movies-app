@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import type { Movie } from '../hooks/use-movies';
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
 import getImage from '../utils/get-image';
+import formatDate from '../utils/format-date';
 
 interface MovieCardProps {
   movie: Movie;
@@ -16,7 +17,7 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
   const navigation = useNavigation<NavigationProp<MoviesParamList, 'Movies'>>();
 
   const date = useMemo(
-    () => new Date(movie.release_date).toLocaleDateString(),
+    () => formatDate(movie.release_date),
     [movie.release_date],
   );
 

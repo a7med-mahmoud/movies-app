@@ -5,6 +5,7 @@ import type { StackScreenProps } from '@react-navigation/stack';
 
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
 import getImage from '../utils/get-image';
+import formatDate from '../utils/format-date';
 
 const MovieDetailsScreen: React.FC<
   StackScreenProps<MoviesParamList, 'MovieDetails'>
@@ -12,7 +13,7 @@ const MovieDetailsScreen: React.FC<
   const { movie } = route.params;
 
   const date = useMemo(
-    () => new Date(movie.release_date).toLocaleDateString(),
+    () => formatDate(movie.release_date),
     [movie.release_date],
   );
 
