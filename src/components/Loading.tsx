@@ -10,6 +10,7 @@ interface LoadingProps {
 const Loading: React.FC<LoadingProps> = React.memo(({ large }) => {
   return (
     <ActivityIndicator
+      testID="loading"
       style={styles.loader}
       size={large ? 'large' : 'small'}
       color={Colors.primary}

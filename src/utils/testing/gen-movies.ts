@@ -3,7 +3,7 @@ import faker from 'faker';
 import type { Movie } from '../../hooks/use-movies';
 
 function genMovies(count = 3): Movie[] {
-  return new Array(count).map(() => ({
+  return new Array(count).fill(null).map(() => ({
     id: Math.random(),
     title: faker.name.title(),
     overview: faker.lorem.lines(3),
