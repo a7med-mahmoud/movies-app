@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.errorBg,
     borderRadius: 10,
     padding: 15,
+    marginHorizontal: 15,
   },
   text: {
     color: Colors.error,

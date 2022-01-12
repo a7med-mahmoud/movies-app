@@ -29,6 +29,7 @@ const renderItem: ListRenderItem<Movie> = ({ item }) => (
 
 const renderSection: ListRenderItem<{
   movies: Movie[];
+  error?: string | null;
   isLoading?: boolean;
   onLoadMore?: () => void;
 }> = ({ item }) => {
@@ -36,6 +37,10 @@ const renderSection: ListRenderItem<{
 
   if (item.isLoading && !isLoadingMore) {
     return <Loading large />;
+  }
+
+  if (item.error) {
+    return <ErrorBox error={item.error} />;
   }
 
   return (
@@ -77,13 +82,11 @@ const MoviesList: React.FC<MoviesListProps> = ({
     },
     {
       title: 'All Movies',
-      data: [{ key: 'all-movies', movies: allMovies, isLoading, onLoadMore }],
+      data: [
+        { key: 'all-movies', movies: allMovies, isLoading, onLoadMore, error },
+      ],
     },
   ];
-
-  if (error) {
-    return <ErrorBox error={error} />;
-  }
 
   // Nested a FlatList inside a SectionList to use the `numColumns` prop
   // in order to make it 2 movies in a row.
