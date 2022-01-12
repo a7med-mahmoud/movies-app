@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import type { Movie } from '../hooks/use-movies';
+import type Movie from '../types/movie';
 import ErrorBox from './ErrorBox';
 import Loading from './Loading';
 import MovieCard from './MovieCard';

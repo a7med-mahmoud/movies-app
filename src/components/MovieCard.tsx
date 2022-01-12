@@ -4,7 +4,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
 import LinearGradient from 'react-native-linear-gradient';
 
-import type { Movie } from '../hooks/use-movies';
+import type Movie from '../types/movie';
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
 import getImage from '../utils/get-image';
 import formatDate from '../utils/format-date';

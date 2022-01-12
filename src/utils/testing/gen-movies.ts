@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import type { Movie } from '../../hooks/use-movies';
+import type Movie from '../../types/movie';
 
 function genMovies(count = 3): Movie[] {
   return new Array(count).fill(null).map(() => ({

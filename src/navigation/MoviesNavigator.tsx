@@ -1,7 +1,7 @@
 import React from 'react';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
-import type { Movie } from '../hooks/use-movies';
+import type Movie from '../types/movie';
 import MovieDetailsScreen from '../screens/MovieDetailsScreen';
 import MoviesScreen from '../screens/MoviesScreen';
 

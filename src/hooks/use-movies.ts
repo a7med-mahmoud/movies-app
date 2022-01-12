@@ -1,12 +1,5 @@
 import { useCallback, useEffect, useReducer } from 'react';
-
-export interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path?: string | null;
-  release_date: string;
-}
+import type Movie from '../types/movie';
 
 // Could've added the `API_KEY` in an env file for the seek of security
 // but chose to keep it here for the app to be ready to use.
