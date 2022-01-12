@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useReducer } from 'react';
+import Config from 'react-native-config';
+
 import type Movie from '../types/movie';
 
-// Could've added the `API_KEY` in an env file for the seek of security
-// but chose to keep it here for the app to be ready to use.
-const API_KEY = 'acea91d2bff1c53e6604e4985b6989e2';
-const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
+const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${Config.API_KEY}`;
 
 export const FETCH_INIT = 'FETCH_INIT';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
