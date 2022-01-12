@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, TextInputProps, View } from 'react-native';
+import { StyleSheet, TextInputProps, View } from 'react-native';
 import { useField } from 'formik';
 
-import Colors from '../theme/colors';
 import TextField from './TextField';
+import ErrorText from './ErrorText';
 
 interface FormTextFieldProps extends TextInputProps {
   name: string;
@@ -27,7 +27,7 @@ const FormTextField: React.FC<FormTextFieldProps> = ({
         {...inputProps}
       />
 
-      {hasError && <Text style={styles.error}>{meta.error}</Text>}
+      {hasError && <ErrorText>{meta.error}</ErrorText>}
     </View>
   );
 };
@@ -35,10 +35,6 @@ const FormTextField: React.FC<FormTextFieldProps> = ({
 const styles = StyleSheet.create({
   container: {
     marginBottom: 10,
-  },
-  error: {
-    color: Colors.error,
-    fontSize: 14,
   },
 });
 

@@ -25,7 +25,7 @@ const MovieDetailsScreen: React.FC<
           id={`movie.${movie.id}.poster`}
           style={styles.posterContainer}>
           <FastImage
-            source={{ uri: getImage(movie.poster_path) }}
+            source={{ uri: getImage(movie.poster_path, movie.isLocal) }}
             style={styles.poster}
           />
         </SharedElement>

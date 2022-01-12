@@ -50,7 +50,7 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
         id={`movie.${movie.id}.poster`}
         style={StyleSheet.absoluteFill}>
         <FastImage
-          source={{ uri: getImage(movie.poster_path) }}
+          source={{ uri: getImage(movie.poster_path, movie.isLocal) }}
           style={[dimensions, styles.poster]}
         />
       </SharedElement>
