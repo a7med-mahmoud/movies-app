@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+import type Movie from '../types/movie';
 import AddMovie from './AddMovie';
 
 interface MovieSectionHeaderProps {
   title: string;
+  onAdd?: (movie: Movie) => void;
 }
 
 const MovieSectionHeader: React.FC<MovieSectionHeaderProps> = React.memo(
-  ({ title }) => {
+  ({ title, onAdd }) => {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
-        {/* TODO: handle add movie on AddMovie button */}
-        {title === 'My Movies' && <AddMovie />}
+        {onAdd && <AddMovie onAdd={onAdd} />}
       </View>
     );
   },

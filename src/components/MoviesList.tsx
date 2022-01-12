@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Dimensions,
   FlatList,
   ListRenderItem,
   SectionList,
@@ -13,11 +12,6 @@ import Loading from './Loading';
 import MovieCard from './MovieCard';
 import MovieSectionHeader from './MovieSectionHeader';
 import NoMovies from './NoMovies';
-
-const { width } = Dimensions.get('window');
-// Item Width = Screen Width - Padding (15 * 2) - Space Between Items (5 * 2)
-const ITEM_WIDTH = width - 30 - 10;
-const ITEM_HEIGHT = ITEM_WIDTH * (3 / 2);
 
 interface MoviesListProps {
   allMovies: Movie[];
@@ -32,11 +26,7 @@ const keyExtractor = (item: Movie) => item.id.toString();
 const renderItem: ListRenderItem<Movie> = ({ item }) => (
   <MovieCard movie={item} />
 );
-const getItemLayout = (_: unknown, index: number) => ({
-  index,
-  length: ITEM_HEIGHT,
-  offset: ITEM_HEIGHT * index + 10,
-});
+
 const renderSection: ListRenderItem<{
   movies: Movie[];
   isLoading?: boolean;
@@ -54,7 +44,6 @@ const renderSection: ListRenderItem<{
       data={item.movies}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
-      getItemLayout={getItemLayout}
       numColumns={2}
       onEndReachedThreshold={0.5}
       onEndReached={item.onLoadMore}

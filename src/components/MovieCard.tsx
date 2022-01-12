@@ -1,8 +1,14 @@
 import React, { useMemo } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
-import LinearGradient from 'react-native-linear-gradient';
 
 import type Movie from '../types/movie';
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
@@ -13,8 +19,23 @@ interface MovieCardProps {
   movie: Movie;
 }
 
+export function getCardDimensions(
+  screenWidth: number,
+  padding = 15,
+  spaceBetween = 5,
+) {
+  const width = screenWidth / 2 - padding - spaceBetween;
+  const height = width * 1.5;
+  return { width, height };
+}
+
 const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
   const navigation = useNavigation<NavigationProp<MoviesParamList, 'Movies'>>();
+  const window = useWindowDimensions();
+  const dimensions = useMemo(
+    () => getCardDimensions(window.width),
+    [window.width],
+  );
 
   const date = useMemo(
     () => formatDate(movie.release_date),
@@ -24,13 +45,13 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('MovieDetails', { movie })}
-      style={styles.container}>
+      style={[styles.container, dimensions]}>
       <SharedElement
         id={`movie.${movie.id}.poster`}
         style={StyleSheet.absoluteFill}>
-        <Image
+        <FastImage
           source={{ uri: getImage(movie.poster_path) }}
-          style={[StyleSheet.absoluteFill, styles.poster]}
+          style={[dimensions, styles.poster]}
         />
       </SharedElement>
 
@@ -49,10 +70,8 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 2 / 3,
     borderRadius: 15,
     overflow: 'hidden',
-    flex: 1,
     margin: 5,
   },
   detailsContainer: {
@@ -65,6 +84,7 @@ const styles = StyleSheet.create({
   },
   poster: {
     borderRadius: 15,
+    position: 'absolute',
   },
   title: {
     color: 'white',

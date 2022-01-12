@@ -5,11 +5,21 @@ import {
   StyleSheet,
   Modal,
   Pressable,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 
+import type Movie from '../types/movie';
 import Colors from '../theme/colors';
+import AddMovieForm from './AddMovieForm';
 
-const AddMovie: React.FC = React.memo(() => {
+const keyboardAvoidingBehavior = Platform.OS === 'ios' ? 'padding' : undefined;
+
+interface AddMovieProps {
+  onAdd: (movie: Movie) => void;
+}
+
+const AddMovie: React.FC<AddMovieProps> = React.memo(({ onAdd }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -24,14 +34,18 @@ const AddMovie: React.FC = React.memo(() => {
       </TouchableHighlight>
 
       <Modal animationType="slide" visible={showModal} transparent>
-        <Pressable style={styles.overlay} onPress={() => setShowModal(false)}>
-          {/* Added a Pressable inside the Pressable so the parent Pressable doesn't respond to the press events on its child */}
-          <Pressable style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Add Movie</Text>
-            {/* TODO: create an add movie form */}
-            {/* <AddMovieForm onSubmit={handleSubmit} /> */}
+        <KeyboardAvoidingView
+          behavior={keyboardAvoidingBehavior}
+          style={styles.keyboardAvoiding}>
+          <Pressable style={styles.overlay} onPress={() => setShowModal(false)}>
+            {/* Added a Pressable inside the Pressable so the parent Pressable doesn't respond to the press events on its child */}
+            <Pressable style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Add Movie</Text>
+
+              <AddMovieForm onAdd={onAdd} />
+            </Pressable>
           </Pressable>
-        </Pressable>
+        </KeyboardAvoidingView>
       </Modal>
     </>
   );
@@ -54,6 +68,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
+  keyboardAvoiding: {
+    flex: 1,
+  },
   modalContent: {
     position: 'absolute',
     bottom: 0,
@@ -70,6 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginBottom: 15,
   },
 });
 
