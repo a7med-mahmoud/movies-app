@@ -72,7 +72,8 @@ const MoviesList: React.FC<MoviesListProps> = ({
   const sections = [
     {
       title: 'My Movies',
-      data: [{ key: 'user-movies', movies: userMovies, onAdd: onAddUserMovie }],
+      onAdd: onAddUserMovie,
+      data: [{ key: 'user-movies', movies: userMovies }],
     },
     {
       title: 'All Movies',
