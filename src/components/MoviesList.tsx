@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Dimensions,
   FlatList,
   ListRenderItem,
   SectionList,
@@ -13,18 +14,29 @@ import MovieCard from './MovieCard';
 import MovieSectionHeader from './MovieSectionHeader';
 import NoMovies from './NoMovies';
 
+const { width } = Dimensions.get('window');
+// Item Width = Screen Width - Padding (15 * 2) - Space Between Items (5 * 2)
+const ITEM_WIDTH = width - 30 - 10;
+const ITEM_HEIGHT = ITEM_WIDTH * (3 / 2);
+
 interface MoviesListProps {
   allMovies: Movie[];
   userMovies: Movie[];
   isLoading: boolean;
   error: string | null;
   onLoadMore: () => void;
+  onAddUserMovie: (movie: Movie) => void;
 }
 
 const keyExtractor = (item: Movie) => item.id.toString();
 const renderItem: ListRenderItem<Movie> = ({ item }) => (
   <MovieCard movie={item} />
 );
+const getItemLayout = (_: unknown, index: number) => ({
+  index,
+  length: ITEM_HEIGHT,
+  offset: ITEM_HEIGHT * index + 10,
+});
 const renderSection: ListRenderItem<{
   movies: Movie[];
   isLoading?: boolean;
@@ -42,6 +54,7 @@ const renderSection: ListRenderItem<{
       data={item.movies}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
+      getItemLayout={getItemLayout}
       numColumns={2}
       onEndReachedThreshold={0.5}
       onEndReached={item.onLoadMore}
@@ -50,8 +63,13 @@ const renderSection: ListRenderItem<{
     />
   );
 };
-const renderSectionHeader = (info: { section: { title: string } }) => (
-  <MovieSectionHeader title={info.section.title} />
+
+interface SectionInfo {
+  section: { title: string; onAdd?: (movie: Movie) => void };
+}
+
+const renderSectionHeader = ({ section }: SectionInfo) => (
+  <MovieSectionHeader title={section.title} onAdd={section.onAdd} />
 );
 
 const MoviesList: React.FC<MoviesListProps> = ({
@@ -60,11 +78,12 @@ const MoviesList: React.FC<MoviesListProps> = ({
   isLoading,
   error,
   onLoadMore,
+  onAddUserMovie,
 }) => {
   const sections = [
     {
       title: 'My Movies',
-      data: [{ key: 'user-movies', movies: userMovies }],
+      data: [{ key: 'user-movies', movies: userMovies, onAdd: onAddUserMovie }],
     },
     {
       title: 'All Movies',
