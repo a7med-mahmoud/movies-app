@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Text,
   TouchableHighlight,
@@ -22,6 +22,14 @@ interface AddMovieProps {
 const AddMovie: React.FC<AddMovieProps> = React.memo(({ onAdd }) => {
   const [showModal, setShowModal] = useState(false);
 
+  const handleAdd = useCallback(
+    (movie: Movie) => {
+      onAdd(movie);
+      setShowModal(false);
+    },
+    [onAdd],
+  );
+
   return (
     <>
       <TouchableHighlight
@@ -42,7 +50,7 @@ const AddMovie: React.FC<AddMovieProps> = React.memo(({ onAdd }) => {
             <Pressable style={styles.modalContent}>
               <Text style={styles.modalTitle}>Add Movie</Text>
 
-              <AddMovieForm onAdd={onAdd} />
+              <AddMovieForm onAdd={handleAdd} />
             </Pressable>
           </Pressable>
         </KeyboardAvoidingView>
