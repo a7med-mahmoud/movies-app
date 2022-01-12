@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SharedElement } from 'react-navigation-shared-element';
+import FastImage from 'react-native-fast-image';
 import type { StackScreenProps } from '@react-navigation/stack';
 
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
@@ -23,7 +24,7 @@ const MovieDetailsScreen: React.FC<
         <SharedElement
           id={`movie.${movie.id}.poster`}
           style={styles.posterContainer}>
-          <Image
+          <FastImage
             source={{ uri: getImage(movie.poster_path) }}
             style={styles.poster}
           />
