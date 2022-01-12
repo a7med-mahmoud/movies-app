@@ -8,6 +8,7 @@ import type Movie from '../types/movie';
 import FormTextField from './FormTextField';
 import today from '../utils/today';
 import Button from './Button';
+import FormImageField from './FormImageField';
 
 interface AddMovieFormProps {
   onAdd: (values: Movie) => void;
@@ -16,6 +17,7 @@ interface AddMovieFormProps {
 type Values = Omit<Movie, 'id' | 'release_date'> & { release_date: Date };
 
 const validationSchema = Yup.object({
+  poster_path: Yup.string().label('Poster'),
   title: Yup.string().label('Title').min(2).max(100).required(),
   overview: Yup.string().label('Overview').min(5).max(1000).required(),
   release_date: Yup.date()
@@ -38,6 +40,7 @@ const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
         ...values,
         id: nanoid(),
         release_date: values.release_date.toDateString(),
+        isLocal: true,
       });
     },
     [onAdd],
@@ -50,6 +53,7 @@ const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
       onSubmit={onSubmit}>
       {({ handleSubmit }) => (
         <>
+          <FormImageField name="poster_path" />
           <FormTextField name="title" placeholder="Title" />
           <FormTextField
             style={styles.overviewField}

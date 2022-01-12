@@ -24,7 +24,12 @@ const FormImageField: React.FC<FormImageFieldProps> = ({
 
   return (
     <View style={styles.container}>
-      <ImageField value={field.value} onChange={onChange} {...inputProps} />
+      <ImageField
+        value={field.value}
+        hasError={hasError}
+        onChange={onChange}
+        {...inputProps}
+      />
 
       {hasError && <ErrorText>{meta.error}</ErrorText>}
     </View>
