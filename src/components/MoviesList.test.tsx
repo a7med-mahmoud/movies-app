@@ -15,6 +15,7 @@ describe('MoviesList', () => {
         error={null}
         isLoading={false}
         onLoadMore={() => {}}
+        onAddUserMovie={() => {}}
       />,
     );
 
@@ -29,6 +30,7 @@ describe('MoviesList', () => {
         error={null}
         isLoading={true}
         onLoadMore={() => {}}
+        onAddUserMovie={() => {}}
       />,
     );
 
@@ -41,8 +43,9 @@ describe('MoviesList', () => {
         allMovies={[]}
         userMovies={[]}
         error="something went wrong"
-        isLoading={true}
+        isLoading={false}
         onLoadMore={() => {}}
+        onAddUserMovie={() => {}}
       />,
     );
 
@@ -60,6 +63,7 @@ describe('MoviesList', () => {
         error={null}
         isLoading={false}
         onLoadMore={() => {}}
+        onAddUserMovie={() => {}}
       />,
     );
 
