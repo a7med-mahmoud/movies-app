@@ -10,13 +10,13 @@ import FastImage from 'react-native-fast-image';
 import { openPicker } from 'react-native-image-crop-picker';
 import Colors from '../theme/colors';
 
-interface ImagePickerProps {
+interface ImageFieldProps {
   value: string;
   hasError?: boolean;
   onChange?: (imageURL: string) => void;
 }
 
-const ImagePicker: React.FC<ImagePickerProps> = React.memo(
+const ImageField: React.FC<ImageFieldProps> = React.memo(
   ({ value, hasError, onChange }) => {
     const handleSelect = useCallback(async () => {
       const image = await openPicker({
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ImagePicker;
+export default ImageField;
