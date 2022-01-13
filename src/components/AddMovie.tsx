@@ -39,7 +39,11 @@ const AddMovie: React.FC<AddMovieProps> = React.memo(({ onAdd }) => {
         </Text>
       </TouchableHighlight>
 
-      <Modal animationType="slide" visible={showModal} transparent>
+      <Modal
+        animationType="slide"
+        visible={showModal}
+        transparent
+        testID="add-movie-modal">
         <Pressable style={styles.overlay} onPress={() => setShowModal(false)} />
 
         <View style={styles.modalContent}>
