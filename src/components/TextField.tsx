@@ -1,26 +1,36 @@
 import React from 'react';
-import { StyleSheet, TextInput, TextInputProps } from 'react-native';
+import { StyleSheet, Text, TextInput, TextInputProps } from 'react-native';
 
 import Colors from '../theme/colors';
 
 interface TextFieldProps extends TextInputProps {
   hasError?: boolean;
+  label: string;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
   hasError,
+  label,
   style,
   ...inputProps
 }) => {
   return (
-    <TextInput
-      style={[styles.input, hasError && styles.inputError, style]}
-      {...inputProps}
-    />
+    <>
+      <Text style={styles.label}>{label}</Text>
+      <TextInput
+        style={[styles.input, hasError && styles.inputError, style]}
+        {...inputProps}
+      />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  label: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 2,
+  },
   input: {
     paddingVertical: 15,
     paddingHorizontal: 20,

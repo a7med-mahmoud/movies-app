@@ -5,7 +5,7 @@ import { useField } from 'formik';
 import DateField, { DateFieldProps } from './DateField';
 import ErrorText from './ErrorText';
 
-interface FormDateFieldProps extends DateFieldProps {
+interface FormDateFieldProps extends Omit<DateFieldProps, 'value'> {
   name: string;
 }
 

@@ -27,11 +27,12 @@ const validationSchema = Yup.object({
     .required(),
 }).required();
 
-const initialValues = {
+const initialValues: Values = {
   title: '',
   overview: '',
   poster_path: '',
-} as Values;
+  release_date: today(),
+};
 
 const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
   const onSubmit = useCallback(
@@ -55,8 +56,13 @@ const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
       {({ handleSubmit }) => (
         <>
           <FormImageField name="poster_path" />
-          <FormTextField name="title" placeholder="Title" />
+          <FormTextField
+            name="title"
+            label="Title"
+            placeholder="e.g. Avengers: Endgame"
+          />
           <FormDateField
+            label="Release Date"
             name="release_date"
             placeholder="Release Date"
             max={maxReleaseDate}
@@ -64,7 +70,8 @@ const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
           <FormTextField
             style={styles.overviewField}
             name="overview"
-            placeholder="Overview"
+            label="Overview"
+            placeholder="e.g. After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must reunite..."
             multiline
           />
 

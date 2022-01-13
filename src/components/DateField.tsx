@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-
 import DatePicker from 'react-native-date-picker';
-import formatDate from '../utils/format-date';
-import today from '../utils/today';
 
 import TextField from './TextField';
+import formatDate from '../utils/format-date';
 
 export interface DateFieldProps {
   hasError?: boolean;
-  value?: Date;
+  value: Date;
   max?: Date;
+  label: string;
   placeholder?: string;
   onChange?: (date: Date) => void;
 }
 
 const DateField: React.FC<DateFieldProps> = React.memo(
-  ({ value, onChange, hasError, max, placeholder }) => {
+  ({ value, onChange, label, hasError, max, placeholder }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     function handleConfirm(date: Date) {
@@ -39,7 +38,8 @@ const DateField: React.FC<DateFieldProps> = React.memo(
         <TouchableOpacity onPress={handleOpen}>
           <View pointerEvents="none">
             <TextField
-              value={value && formatDate(value)}
+              value={formatDate(value)}
+              label={label}
               hasError={hasError}
               placeholder={placeholder}
               onFocus={handleOpen}
@@ -52,7 +52,7 @@ const DateField: React.FC<DateFieldProps> = React.memo(
           mode="date"
           maximumDate={max}
           open={isOpen}
-          date={value || today()}
+          date={value}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
         />

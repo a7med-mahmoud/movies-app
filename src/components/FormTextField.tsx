@@ -7,6 +7,7 @@ import ErrorText from './ErrorText';
 
 interface FormTextFieldProps extends TextInputProps {
   name: string;
+  label: string;
 }
 
 const FormTextField: React.FC<FormTextFieldProps> = ({
