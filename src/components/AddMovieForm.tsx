@@ -72,6 +72,7 @@ const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
             name="overview"
             label="Overview"
             placeholder="e.g. After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must reunite..."
+            scrollEnabled={false}
             multiline
           />
 

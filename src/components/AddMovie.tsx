@@ -1,19 +1,17 @@
 import React, { useCallback, useState } from 'react';
 import {
+  View,
   Text,
   TouchableHighlight,
   StyleSheet,
   Modal,
   Pressable,
-  KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import type Movie from '../types/movie';
 import Colors from '../theme/colors';
 import AddMovieForm from './AddMovieForm';
-
-const keyboardAvoidingBehavior = Platform.OS === 'ios' ? 'padding' : undefined;
 
 interface AddMovieProps {
   onAdd: (movie: Movie) => void;
@@ -42,18 +40,14 @@ const AddMovie: React.FC<AddMovieProps> = React.memo(({ onAdd }) => {
       </TouchableHighlight>
 
       <Modal animationType="slide" visible={showModal} transparent>
-        <KeyboardAvoidingView
-          behavior={keyboardAvoidingBehavior}
-          style={styles.keyboardAvoiding}>
-          <Pressable style={styles.overlay} onPress={() => setShowModal(false)}>
-            {/* Added a Pressable inside the Pressable so the parent Pressable doesn't respond to the press events on its child */}
-            <Pressable style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Add Movie</Text>
+        <Pressable style={styles.overlay} onPress={() => setShowModal(false)} />
 
-              <AddMovieForm onAdd={handleAdd} />
-            </Pressable>
-          </Pressable>
-        </KeyboardAvoidingView>
+        <View style={styles.modalContent}>
+          <KeyboardAwareScrollView style={styles.keyboardAvoiding}>
+            <Text style={styles.modalTitle}>Add Movie</Text>
+            <AddMovieForm onAdd={handleAdd} />
+          </KeyboardAwareScrollView>
+        </View>
       </Modal>
     </>
   );
