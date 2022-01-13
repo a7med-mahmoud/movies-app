@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import * as Yup from 'yup';
 import { StyleSheet } from 'react-native';
 import { Formik } from 'formik';
@@ -9,6 +9,7 @@ import FormTextField from './FormTextField';
 import today from '../utils/today';
 import Button from './Button';
 import FormImageField from './FormImageField';
+import FormDateField from './FormDateField';
 
 interface AddMovieFormProps {
   onAdd: (values: Movie) => void;
@@ -26,12 +27,11 @@ const validationSchema = Yup.object({
     .required(),
 }).required();
 
-const initialValues: Values = {
+const initialValues = {
   title: '',
   overview: '',
-  release_date: today(),
   poster_path: '',
-};
+} as Values;
 
 const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
   const onSubmit = useCallback(
@@ -45,6 +45,7 @@ const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
     },
     [onAdd],
   );
+  const maxReleaseDate = useMemo(() => today(), []);
 
   return (
     <Formik
@@ -55,6 +56,11 @@ const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
         <>
           <FormImageField name="poster_path" />
           <FormTextField name="title" placeholder="Title" />
+          <FormDateField
+            name="release_date"
+            placeholder="Release Date"
+            max={maxReleaseDate}
+          />
           <FormTextField
             style={styles.overviewField}
             name="overview"
