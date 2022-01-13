@@ -37,10 +37,7 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
     [window.width],
   );
 
-  const date = useMemo(
-    () => formatDate(movie.release_date),
-    [movie.release_date],
-  );
+  const date = formatDate(movie.release_date);
 
   return (
     <TouchableOpacity

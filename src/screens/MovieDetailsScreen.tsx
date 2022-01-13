@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SharedElement } from 'react-navigation-shared-element';
 import FastImage from 'react-native-fast-image';
@@ -13,10 +13,7 @@ const MovieDetailsScreen: React.FC<
 > = ({ route }) => {
   const { movie } = route.params;
 
-  const date = useMemo(
-    () => formatDate(movie.release_date),
-    [movie.release_date],
-  );
+  const date = formatDate(movie.release_date);
 
   return (
     <ScrollView style={styles.container}>
