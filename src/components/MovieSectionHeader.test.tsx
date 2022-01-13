@@ -10,9 +10,11 @@ describe('MovieSectionHeader', () => {
     expect(getByText('My Title')).toBeTruthy();
   });
 
-  it('render add movie button if title is "My Movies"', () => {
-    const { getByA11yLabel } = render(<MovieSectionHeader title="My Movies" />);
+  it('render add movie button if onAdd is passed', () => {
+    const { getByLabelText } = render(
+      <MovieSectionHeader title="My Movies" onAdd={() => {}} />,
+    );
 
-    expect(getByA11yLabel('Add Movie')).toBeTruthy();
+    expect(getByLabelText('Add Movie')).toBeTruthy();
   });
 });
