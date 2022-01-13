@@ -9,7 +9,10 @@ interface FormDateFieldProps extends DateFieldProps {
   name: string;
 }
 
-const FormDateField: React.FC<FormDateFieldProps> = ({ name }) => {
+const FormDateField: React.FC<FormDateFieldProps> = ({
+  name,
+  ...fieldProps
+}) => {
   const [field, meta, helpers] = useField(name);
 
   const hasError = meta.touched && !!meta.error;
@@ -20,6 +23,7 @@ const FormDateField: React.FC<FormDateFieldProps> = ({ name }) => {
         value={field.value}
         hasError={hasError}
         onChange={date => helpers.setValue(date)}
+        {...fieldProps}
       />
 
       {hasError && <ErrorText>{meta.error}</ErrorText>}
