@@ -59,7 +59,7 @@
       "./src/setup-tests.ts"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|react-native-image-crop-picker)/)"
+      "node_modules/(?!(@react-native|react-native|react-native-date-picker|react-native-image-crop-picker)/)"
     ],
     "moduleFileExtensions": [
       "ts",
