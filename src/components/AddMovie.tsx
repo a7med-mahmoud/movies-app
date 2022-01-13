@@ -44,7 +44,11 @@ const AddMovie: React.FC<AddMovieProps> = React.memo(({ onAdd }) => {
         visible={showModal}
         transparent
         testID="add-movie-modal">
-        <Pressable style={styles.overlay} onPress={() => setShowModal(false)} />
+        <Pressable
+          style={styles.overlay}
+          onPress={() => setShowModal(false)}
+          testID="overlay"
+        />
 
         <View style={styles.modalContent}>
           <KeyboardAwareScrollView style={styles.keyboardAvoiding}>
