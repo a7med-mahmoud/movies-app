@@ -5,9 +5,9 @@ import MovieSectionHeader from './MovieSectionHeader';
 
 describe('MovieSectionHeader', () => {
   it('renders section title correctly', () => {
-    const { getByText } = render(<MovieSectionHeader title="My Title" />);
+    const { queryByText } = render(<MovieSectionHeader title="My Title" />);
 
-    expect(getByText('My Title')).toBeTruthy();
+    expect(queryByText('My Title')).toBeTruthy();
   });
 
   it('render add movie button if onAdd is passed', () => {

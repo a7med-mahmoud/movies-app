@@ -38,7 +38,7 @@ describe('MoviesList', () => {
   });
 
   it("shows error when there's an error", () => {
-    const { getByText } = render(
+    const { queryByText } = render(
       <MoviesList
         allMovies={[]}
         userMovies={[]}
@@ -49,14 +49,14 @@ describe('MoviesList', () => {
       />,
     );
 
-    expect(getByText('something went wrong')).toBeTruthy();
+    expect(queryByText('something went wrong')).toBeTruthy();
   });
 
   it('renders movies correctly', () => {
     const allMovies = genMovies();
     const userMovies = genMovies();
 
-    const { getByText } = render(
+    const { queryByText } = render(
       <MoviesList
         allMovies={allMovies}
         userMovies={userMovies}
@@ -69,7 +69,7 @@ describe('MoviesList', () => {
 
     const movies = [...allMovies, ...userMovies];
     movies.forEach(movie => {
-      expect(getByText(movie.title)).toBeTruthy();
+      expect(queryByText(movie.title)).toBeTruthy();
     });
   });
 });

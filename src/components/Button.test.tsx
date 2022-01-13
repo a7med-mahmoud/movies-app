@@ -5,9 +5,9 @@ import Button from './Button';
 
 describe('Button', () => {
   it('renders text correctly', () => {
-    const { getByText } = render(<Button>I'm a Button</Button>);
+    const { queryByText } = render(<Button>I'm a Button</Button>);
 
-    expect(getByText("I'm a Button")).toBeTruthy();
+    expect(queryByText("I'm a Button")).toBeTruthy();
   });
 
   it('handles press event successfully', () => {

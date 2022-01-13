@@ -5,8 +5,8 @@ import ErrorText from './ErrorText';
 
 describe('ErrorText', () => {
   it('shows the error message', () => {
-    const { getByText } = render(<ErrorText>some error message</ErrorText>);
+    const { queryByText } = render(<ErrorText>some error message</ErrorText>);
 
-    expect(getByText('some error message')).toBeTruthy();
+    expect(queryByText('some error message')).toBeTruthy();
   });
 });

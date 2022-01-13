@@ -16,16 +16,16 @@ const MOVIE = {
 
 describe('MovieCard', () => {
   it('renders movie details', () => {
-    const { getByText } = render(<MovieCard movie={MOVIE} />);
+    const { queryByText } = render(<MovieCard movie={MOVIE} />);
 
-    expect(getByText(MOVIE.title)).toBeTruthy();
-    expect(getByText(MOVIE.overview)).toBeTruthy();
+    expect(queryByText(MOVIE.title)).toBeTruthy();
+    expect(queryByText(MOVIE.overview)).toBeTruthy();
   });
 
   it('navigates to details on press', () => {
     const { getByText } = render(<MovieCard movie={MOVIE} />);
 
-    fireEvent.press(getByText(/movie/i));
+    fireEvent.press(getByText(MOVIE.title));
 
     expect(mockNavigate).toBeCalledWith('MovieDetails', { movie: MOVIE });
   });
