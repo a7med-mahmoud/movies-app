@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { openPicker } from 'react-native-image-crop-picker';
+
 import Colors from '../theme/colors';
 
 interface ImageFieldProps {
@@ -18,7 +19,7 @@ interface ImageFieldProps {
 
 const ImageField: React.FC<ImageFieldProps> = React.memo(
   ({ value, hasError, onChange }) => {
-    const handleSelect = useCallback(async () => {
+    async function handleSelect() {
       const image = await openPicker({
         cropping: true,
         width: 400,
@@ -28,13 +29,13 @@ const ImageField: React.FC<ImageFieldProps> = React.memo(
       if (onChange) {
         onChange(image.path);
       }
-    }, [onChange]);
+    }
 
-    const handleClear = useCallback(() => {
+    function handleClear() {
       if (onChange) {
         onChange('');
       }
-    }, [onChange]);
+    }
 
     return (
       <View style={styles.container}>

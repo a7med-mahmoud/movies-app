@@ -91,6 +91,7 @@ function useMovies() {
 
   useEffect(() => {
     fetchMovies();
+    // I want to run it on mount only so I don't care when fetchMovies changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

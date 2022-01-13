@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useField } from 'formik';
 
@@ -17,17 +17,12 @@ const FormImageField: React.FC<FormImageFieldProps> = ({
 
   const hasError = meta.touched && !!meta.error;
 
-  const onChange = useCallback(
-    (imageURL: string) => helpers.setValue(imageURL),
-    [helpers],
-  );
-
   return (
     <View style={styles.container}>
       <ImageField
         value={field.value}
         hasError={hasError}
-        onChange={onChange}
+        onChange={imageURL => helpers.setValue(imageURL)}
         {...inputProps}
       />
 
