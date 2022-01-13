@@ -1,4 +1,0 @@
-{
-  "preset": "react-native",
-  "setupFilesAfterEnv": ["./src/setup-tests.ts"]
-}

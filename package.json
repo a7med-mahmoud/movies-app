@@ -54,6 +54,12 @@
   },
   "jest": {
     "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "./src/setup-tests.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@react-native|react-native|react-native-image-crop-picker)/)"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
