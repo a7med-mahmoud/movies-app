@@ -7,6 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Toast from 'react-native-simple-toast';
 import { openPicker } from 'react-native-image-crop-picker';
 
 import Colors from '../theme/colors';
@@ -20,14 +21,22 @@ interface ImageFieldProps {
 const ImageField: React.FC<ImageFieldProps> = React.memo(
   ({ value, hasError, onChange }) => {
     async function handleSelect() {
-      const image = await openPicker({
-        cropping: true,
-        width: 400,
-        height: 600,
-      });
+      try {
+        const image = await openPicker({
+          cropping: true,
+          width: 400,
+          height: 600,
+        });
 
-      if (onChange) {
-        onChange(image.path);
+        if (onChange) {
+          onChange(image.path);
+        }
+      } catch (err) {
+        if (__DEV__) {
+          console.error(err);
+        }
+
+        Toast.show('Failed to pick an image');
       }
     }
 
