@@ -9,10 +9,7 @@ interface FormImageFieldProps {
   name: string;
 }
 
-const FormImageField: React.FC<FormImageFieldProps> = ({
-  name,
-  ...inputProps
-}) => {
+const FormImageField: React.FC<FormImageFieldProps> = ({ name }) => {
   const [field, meta, helpers] = useField(name);
 
   const hasError = meta.touched && !!meta.error;
@@ -23,7 +20,6 @@ const FormImageField: React.FC<FormImageFieldProps> = ({
         value={field.value}
         hasError={hasError}
         onChange={imageURL => helpers.setValue(imageURL)}
-        {...inputProps}
       />
 
       {hasError && <ErrorText>{meta.error}</ErrorText>}
