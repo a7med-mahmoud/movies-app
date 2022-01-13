@@ -7,24 +7,27 @@ import type { StackScreenProps } from '@react-navigation/stack';
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
 import getImage from '../utils/get-image';
 import formatDate from '../utils/format-date';
+import useCardDimensions from '../hooks/use-card-dimensions';
 
 const MovieDetailsScreen: React.FC<
   StackScreenProps<MoviesParamList, 'MovieDetails'>
 > = ({ route }) => {
   const { movie } = route.params;
 
+  const dimensions = useCardDimensions();
+
   const date = formatDate(movie.release_date);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.mainInfo}>
-        <SharedElement
-          id={`movie.${movie.id}.poster`}
-          style={styles.posterContainer}>
-          <FastImage
-            source={{ uri: getImage(movie.poster_path, movie.isLocal) }}
-            style={styles.poster}
-          />
+        <SharedElement id={`movie.${movie.id}.poster`} style={dimensions}>
+          <View style={[StyleSheet.absoluteFill, styles.poster]}>
+            <FastImage
+              source={{ uri: getImage(movie.poster_path, movie.isLocal) }}
+              style={StyleSheet.absoluteFill}
+            />
+          </View>
         </SharedElement>
         <View style={styles.infoContainer}>
           <Text style={styles.title}>{movie.title}</Text>
@@ -46,12 +49,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 15,
   },
-  posterContainer: {
-    width: '50%',
-  },
   poster: {
-    aspectRatio: 2 / 3,
     borderRadius: 15,
+    overflow: 'hidden',
   },
   container: {
     padding: 15,

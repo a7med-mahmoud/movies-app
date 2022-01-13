@@ -1,10 +1,5 @@
-import React, { useMemo } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
-} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
@@ -14,6 +9,7 @@ import type Movie from '../types/movie';
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
 import getImage from '../utils/get-image';
 import formatDate from '../utils/format-date';
+import useCardDimensions from '../hooks/use-card-dimensions';
 
 interface MovieCardProps {
   movie: Movie;
@@ -31,11 +27,7 @@ export function getCardDimensions(
 
 const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
   const navigation = useNavigation<NavigationProp<MoviesParamList, 'Movies'>>();
-  const window = useWindowDimensions();
-  const dimensions = useMemo(
-    () => getCardDimensions(window.width),
-    [window.width],
-  );
+  const dimensions = useCardDimensions();
 
   const date = formatDate(movie.release_date);
 
@@ -46,10 +38,12 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
       <SharedElement
         id={`movie.${movie.id}.poster`}
         style={StyleSheet.absoluteFill}>
-        <FastImage
-          source={{ uri: getImage(movie.poster_path, movie.isLocal) }}
-          style={[dimensions, styles.poster]}
-        />
+        <View style={[dimensions, styles.poster]}>
+          <FastImage
+            source={{ uri: getImage(movie.poster_path, movie.isLocal) }}
+            style={StyleSheet.absoluteFill}
+          />
+        </View>
       </SharedElement>
 
       <LinearGradient
@@ -81,7 +75,7 @@ const styles = StyleSheet.create({
   },
   poster: {
     borderRadius: 15,
-    position: 'absolute',
+    overflow: 'hidden',
   },
   title: {
     color: 'white',
