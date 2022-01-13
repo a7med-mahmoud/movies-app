@@ -8,7 +8,7 @@ jest.mock('react-native-image-crop-picker', () => ({
 }));
 
 describe('ImageField', () => {
-  it('picks image on select image pressed', () => {
+  it('picks image on select image pressed', async () => {
     const onChange = jest.fn();
     const { getByLabelText } = render(
       <ImageField value="" onChange={onChange} />,
@@ -16,7 +16,7 @@ describe('ImageField', () => {
 
     const selectImage = getByLabelText('Select image');
 
-    fireEvent.press(selectImage);
+    await fireEvent.press(selectImage);
 
     expect(onChange).toBeCalledWith('poster.jpg');
   });
