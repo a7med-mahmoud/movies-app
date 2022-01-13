@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 
 import DatePicker from 'react-native-date-picker';
 import formatDate from '../utils/format-date';
@@ -35,13 +36,16 @@ const DateField: React.FC<DateFieldProps> = React.memo(
 
     return (
       <>
-        <TextField
-          value={value && formatDate(value)}
-          hasError={hasError}
-          placeholder={placeholder}
-          onPressIn={handleOpen}
-          onFocus={handleOpen}
-        />
+        <TouchableOpacity onPress={handleOpen}>
+          <View pointerEvents="none">
+            <TextField
+              value={value && formatDate(value)}
+              hasError={hasError}
+              placeholder={placeholder}
+              onFocus={handleOpen}
+            />
+          </View>
+        </TouchableOpacity>
 
         <DatePicker
           modal
