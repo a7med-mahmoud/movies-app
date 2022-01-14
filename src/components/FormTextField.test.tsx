@@ -49,7 +49,7 @@ describe('FormTextField', () => {
     const field = getByLabelText('Title');
     const button = getByRole('button');
 
-    const title = faker.lorem.word(Math.floor(4 * Math.random())); // word with length of 0-4
+    const title = faker.lorem.word(1 + Math.floor(3 * Math.random())); // word with length of 1-4
     act(() => {
       fireEvent.changeText(field, title);
     });
