@@ -68,40 +68,41 @@ const renderSectionHeader = ({ section }: SectionInfo) => (
   <MovieSectionHeader title={section.title} onAdd={section.onAdd} />
 );
 
-const MoviesList: React.FC<MoviesListProps> = ({
-  allMovies,
-  userMovies,
-  isLoading,
-  error,
-  onLoadMore,
-  onAddUserMovie,
-}) => {
-  const sections = [
-    {
-      title: 'My Movies',
-      onAdd: onAddUserMovie,
-      data: [{ key: 'user-movies', movies: userMovies }],
-    },
-    {
-      title: 'All Movies',
-      data: [
-        { key: 'all-movies', movies: allMovies, isLoading, onLoadMore, error },
-      ],
-    },
-  ];
+const MoviesList: React.FC<MoviesListProps> = React.memo(
+  ({ allMovies, userMovies, isLoading, error, onLoadMore, onAddUserMovie }) => {
+    const sections = [
+      {
+        title: 'My Movies',
+        onAdd: onAddUserMovie,
+        data: [{ key: 'user-movies', movies: userMovies }],
+      },
+      {
+        title: 'All Movies',
+        data: [
+          {
+            key: 'all-movies',
+            movies: allMovies,
+            isLoading,
+            onLoadMore,
+            error,
+          },
+        ],
+      },
+    ];
 
-  // Nested a FlatList inside a SectionList to use the `numColumns` prop
-  // in order to make it 2 movies in a row.
-  // Please note that the React Native team recommends composing Lists when needed
-  // and this one of the cases we need to compose a FLatList and a SectionList
-  return (
-    <SectionList
-      sections={sections}
-      renderSectionHeader={renderSectionHeader}
-      renderItem={renderSection}
-    />
-  );
-};
+    // Nested a FlatList inside a SectionList to use the `numColumns` prop
+    // in order to make it 2 movies in a row.
+    // Please note that the React Native team recommends composing Lists when needed
+    // and this one of the cases we need to compose a FLatList and a SectionList
+    return (
+      <SectionList
+        sections={sections}
+        renderSectionHeader={renderSectionHeader}
+        renderItem={renderSection}
+      />
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   list: {
