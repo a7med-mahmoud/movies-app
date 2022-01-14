@@ -1,14 +1,13 @@
-import genMovies from '../utils/testing/gen-movies';
-import {
+import reducer, {
   Action,
   FETCH_SUCCESS,
   FETCH_FAILURE,
   initialState,
-  reducer,
   FETCH_INIT,
-} from './use-movies';
+} from './movies-reducer';
+import genMovies from '../utils/testing/gen-movies';
 
-describe('Movies Reducer', () => {
+describe('Movies reducer', () => {
   it('returns default state if no action', () => {
     const state = reducer(undefined, {} as Action);
 
