@@ -18,6 +18,7 @@ const TextField: React.FC<TextFieldProps> = ({
     <>
       <Text style={styles.label}>{label}</Text>
       <TextInput
+        accessibilityLabel={label}
         style={[styles.input, hasError && styles.inputError, style]}
         {...inputProps}
       />
