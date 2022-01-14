@@ -19,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({
     <TouchableHighlight
       style={[styles.button, style]}
       underlayColor={Colors.primaryDark}
+      accessibilityRole="button"
       {...touchableProps}>
       <Text style={styles.text}>{children}</Text>
     </TouchableHighlight>

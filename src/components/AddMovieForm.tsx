@@ -1,15 +1,14 @@
 import React, { useCallback, useMemo } from 'react';
 import * as Yup from 'yup';
 import { StyleSheet } from 'react-native';
-import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
 
 import type Movie from '../types/movie';
+import Form from './Form';
 import FormTextField from './FormTextField';
-import today from '../utils/today';
-import Button from './Button';
 import FormImageField from './FormImageField';
 import FormDateField from './FormDateField';
+import today from '../utils/today';
 
 interface AddMovieFormProps {
   onAdd: (values: Movie) => void;
@@ -49,37 +48,32 @@ const AddMovieForm: React.FC<AddMovieFormProps> = ({ onAdd }) => {
   const maxReleaseDate = useMemo(() => today(), []);
 
   return (
-    <Formik
+    <Form
+      submitText="Add Movie"
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}>
-      {({ handleSubmit }) => (
-        <>
-          <FormImageField name="poster_path" />
-          <FormTextField
-            name="title"
-            label="Title"
-            placeholder="e.g. Avengers: Endgame"
-          />
-          <FormDateField
-            label="Release Date"
-            name="release_date"
-            placeholder="Release Date"
-            max={maxReleaseDate}
-          />
-          <FormTextField
-            style={styles.overviewField}
-            name="overview"
-            label="Overview"
-            placeholder="e.g. After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must reunite..."
-            scrollEnabled={false}
-            multiline
-          />
-
-          <Button onPress={handleSubmit}>Add Movie</Button>
-        </>
-      )}
-    </Formik>
+      <FormImageField name="poster_path" />
+      <FormTextField
+        name="title"
+        label="Title"
+        placeholder="e.g. Avengers: Endgame"
+      />
+      <FormDateField
+        label="Release Date"
+        name="release_date"
+        placeholder="Release Date"
+        max={maxReleaseDate}
+      />
+      <FormTextField
+        style={styles.overviewField}
+        name="overview"
+        label="Overview"
+        placeholder="e.g. After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must reunite..."
+        scrollEnabled={false}
+        multiline
+      />
+    </Form>
   );
 };
 
