@@ -1,6 +1,7 @@
 import React from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 import * as Yup from 'yup';
+import faker from 'faker';
 
 import Form from './Form';
 import FormTextField from './FormTextField';
@@ -17,14 +18,15 @@ describe('FormTextField', () => {
     const field = getByLabelText('Title');
     const button = getByRole('button');
 
+    const title = faker.lorem.words(3);
     act(() => {
-      fireEvent.changeText(field, 'hello');
+      fireEvent.changeText(field, title);
     });
 
     fireEvent.press(button);
 
     await waitFor(() => {
-      expect(onSubmit).toBeCalledWith({ title: 'hello' }, expect.anything());
+      expect(onSubmit).toBeCalledWith({ title }, expect.anything());
     });
   });
 
@@ -47,8 +49,9 @@ describe('FormTextField', () => {
     const field = getByLabelText('Title');
     const button = getByRole('button');
 
+    const title = faker.lorem.word(Math.floor(4 * Math.random())); // word with length of 0-4
     act(() => {
-      fireEvent.changeText(field, 'hi');
+      fireEvent.changeText(field, title);
     });
 
     fireEvent.press(button);
