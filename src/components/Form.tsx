@@ -4,7 +4,7 @@ import { Formik, FormikConfig, FormikValues } from 'formik';
 import Button from './Button';
 
 interface FormProps<Values extends FormikValues> extends FormikConfig<Values> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   submitText?: string;
 }
 
