@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import Colors from '../theme/colors';
+import Theme from '../theme';
 
 interface ErrorBoxProps {
   error: string;
@@ -19,13 +19,13 @@ const ErrorBox: React.FC<ErrorBoxProps> = React.memo(({ error }) => {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: Colors.errorBg,
-    borderRadius: 10,
+    backgroundColor: Theme.colors.errorBg,
+    borderRadius: Theme.borderRadii.sm,
     padding: 15,
     marginHorizontal: 15,
   },
   text: {
-    color: Colors.error,
+    color: Theme.colors.error,
     fontWeight: 'bold',
     textAlign: 'center',
   },

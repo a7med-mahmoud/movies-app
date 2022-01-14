@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
-import Colors from '../theme/colors';
+import Theme from '../theme';
 
 const ErrorText: React.FC = ({ children }) => {
   return <Text style={styles.error}>{children}</Text>;
@@ -9,7 +9,7 @@ const ErrorText: React.FC = ({ children }) => {
 
 const styles = StyleSheet.create({
   error: {
-    color: Colors.error,
+    color: Theme.colors.error,
     fontSize: 14,
   },
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 
-import Colors from '../theme/colors';
+import Theme from '../theme';
 
 interface LoadingProps {
   large?: boolean;
@@ -13,7 +13,7 @@ const Loading: React.FC<LoadingProps> = React.memo(({ large }) => {
       testID="loading"
       style={styles.loader}
       size={large ? 'large' : 'small'}
-      color={Colors.primary}
+      color={Theme.colors.primary}
     />
   );
 });

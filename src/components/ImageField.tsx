@@ -10,7 +10,7 @@ import FastImage from 'react-native-fast-image';
 import Toast from 'react-native-simple-toast';
 import { openPicker } from 'react-native-image-crop-picker';
 
-import Colors from '../theme/colors';
+import Theme from '../theme';
 
 interface ImageFieldProps {
   value: string;
@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
   },
   preview: {
     aspectRatio: 2 / 3,
-    borderRadius: 15,
-    borderColor: '#ccc',
+    borderRadius: Theme.borderRadii.md,
+    borderColor: Theme.colors.border,
     borderWidth: 1,
   },
   fieldError: {
-    borderColor: Colors.error,
-    backgroundColor: Colors.errorBg,
+    borderColor: Theme.colors.error,
+    backgroundColor: Theme.colors.errorBg,
   },
   clearButton: {
     position: 'absolute',
@@ -92,10 +92,10 @@ const styles = StyleSheet.create({
     right: -7,
     height: 30,
     width: 30,
-    borderRadius: 15,
+    borderRadius: Theme.borderRadii.md,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.error,
+    backgroundColor: Theme.colors.error,
   },
   clearIcon: {
     fontSize: 20,

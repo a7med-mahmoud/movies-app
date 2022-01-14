@@ -7,6 +7,7 @@ import { SharedElement } from 'react-navigation-shared-element';
 
 import type Movie from '../types/movie';
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
+import Theme from '../theme';
 import getImage from '../utils/get-image';
 import formatDate from '../utils/format-date';
 import useCardDimensions from '../hooks/use-card-dimensions';
@@ -61,7 +62,7 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 15,
+    borderRadius: Theme.borderRadii.md,
     overflow: 'hidden',
     margin: 5,
   },
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   poster: {
-    borderRadius: 15,
+    borderRadius: Theme.borderRadii.md,
     overflow: 'hidden',
   },
   title: {

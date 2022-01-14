@@ -5,6 +5,7 @@ import FastImage from 'react-native-fast-image';
 import type { StackScreenProps } from '@react-navigation/stack';
 
 import type { MoviesParamList } from '../navigation/MoviesNavigator';
+import Theme from '../theme';
 import getImage from '../utils/get-image';
 import formatDate from '../utils/format-date';
 import useCardDimensions from '../hooks/use-card-dimensions';
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   poster: {
-    borderRadius: 15,
+    borderRadius: Theme.borderRadii.md,
     overflow: 'hidden',
   },
   container: {

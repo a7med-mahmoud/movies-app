@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
+import Theme from '../theme';
+
 const NoMovies: React.FC = React.memo(() => {
   return (
     <View style={styles.container}>
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: '#555',
+    color: Theme.colors.gray,
     fontSize: 16,
     fontStyle: 'italic',
   },

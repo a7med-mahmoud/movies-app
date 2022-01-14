@@ -10,7 +10,7 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import type Movie from '../types/movie';
-import Colors from '../theme/colors';
+import Theme from '../theme';
 import AddMovieForm from './AddMovieForm';
 
 interface AddMovieProps {
@@ -33,7 +33,7 @@ const AddMovie: React.FC<AddMovieProps> = React.memo(({ onAdd }) => {
       <TouchableHighlight
         onPress={() => setShowModal(true)}
         style={styles.button}
-        underlayColor={Colors.primaryDark}>
+        underlayColor={Theme.colors.primaryDark}>
         <Text style={styles.plusIcon} accessibilityLabel="Add Movie">
           +
         </Text>
@@ -65,10 +65,10 @@ const styles = StyleSheet.create({
   button: {
     height: 35,
     width: 35,
-    borderRadius: 25,
+    borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primary,
+    backgroundColor: Theme.colors.primary,
   },
   plusIcon: {
     color: 'white',

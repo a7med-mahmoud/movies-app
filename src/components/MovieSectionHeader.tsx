@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Theme from '../theme';
 
 import type Movie from '../types/movie';
 import AddMovie from './AddMovie';
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f2f2f2',
+    backgroundColor: Theme.colors.light,
   },
   title: {
     fontSize: 24,

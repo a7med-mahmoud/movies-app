@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, TextInputProps } from 'react-native';
 
-import Colors from '../theme/colors';
+import Theme from '../theme';
 
 interface TextFieldProps extends TextInputProps {
   hasError?: boolean;
@@ -29,21 +29,21 @@ const TextField: React.FC<TextFieldProps> = ({
 const styles = StyleSheet.create({
   label: {
     fontSize: 16,
-    color: '#333',
+    color: Theme.colors.dark,
     marginBottom: 2,
   },
   input: {
     paddingVertical: 15,
     paddingHorizontal: 20,
-    borderRadius: 7,
+    borderRadius: Theme.borderRadii.sm,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: Theme.colors.border,
     fontSize: 16,
     marginBottom: 8,
   },
   inputError: {
-    borderColor: Colors.error,
-    backgroundColor: Colors.errorBg,
+    borderColor: Theme.colors.error,
+    backgroundColor: Theme.colors.errorBg,
   },
 });
 

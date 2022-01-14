@@ -6,7 +6,7 @@ import {
   TouchableHighlightProps,
 } from 'react-native';
 
-import Colors from '../theme/colors';
+import Theme from '../theme';
 
 interface ButtonProps extends TouchableHighlightProps {}
 
@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <TouchableHighlight
       style={[styles.button, style]}
-      underlayColor={Colors.primaryDark}
+      underlayColor={Theme.colors.primaryDark}
       accessibilityRole="button"
       {...touchableProps}>
       <Text style={styles.text}>{children}</Text>
@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 15,
     paddingHorizontal: 20,
-    borderRadius: 7,
-    backgroundColor: Colors.primary,
+    borderRadius: Theme.borderRadii.sm,
+    backgroundColor: Theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },
