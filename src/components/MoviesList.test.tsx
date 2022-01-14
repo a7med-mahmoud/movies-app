@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 
 import MoviesList from './MoviesList';
 import genMovies from '../utils/testing/gen-movies';
@@ -71,5 +71,24 @@ describe('MoviesList', () => {
     movies.forEach(movie => {
       expect(queryByText(movie.title)).toBeTruthy();
     });
+  });
+
+  it('loads more movies on list end reached', () => {
+    const onLoadMore = jest.fn();
+    const { getByTestId } = render(
+      <MoviesList
+        allMovies={[]}
+        userMovies={[]}
+        error={null}
+        isLoading={false}
+        onLoadMore={onLoadMore}
+        onAddUserMovie={() => {}}
+      />,
+    );
+
+    const allMoviesList = getByTestId('all-movies-list');
+    fireEvent(allMoviesList, 'endReached');
+
+    expect(onLoadMore).toBeCalled();
   });
 });

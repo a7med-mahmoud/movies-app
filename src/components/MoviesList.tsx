@@ -29,6 +29,7 @@ const renderItem: ListRenderItem<Movie> = ({ item }) => (
 
 const renderSection: ListRenderItem<{
   movies: Movie[];
+  key: string;
   error?: string | null;
   isLoading?: boolean;
   onLoadMore?: () => void;
@@ -45,6 +46,7 @@ const renderSection: ListRenderItem<{
 
   return (
     <FlatList
+      testID={`${item.key}-list`}
       style={styles.list}
       data={item.movies}
       keyExtractor={keyExtractor}
