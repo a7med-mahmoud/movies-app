@@ -7,7 +7,7 @@ describe('TextField', () => {
   it('calls onChange on text change', () => {
     const onChange = jest.fn();
     const { container } = render(
-      <TextField value="" onChangeText={onChange} />,
+      <TextField label="Label" value="" onChangeText={onChange} />,
     );
 
     fireEvent.changeText(container, 'some text');
