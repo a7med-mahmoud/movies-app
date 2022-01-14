@@ -1,16 +1,21 @@
 import React from 'react';
 import { Pressable } from 'react-native';
 import type { DatePickerProps } from 'react-native-date-picker';
-import faker from 'faker';
 
 const MockDatePicker: React.FC<DatePickerProps> = ({ onConfirm }) => {
-  function handleConfirm() {
+  function handleConfirm(date: Date) {
     if (onConfirm) {
-      onConfirm(faker.date.past());
+      onConfirm(date);
     }
   }
 
-  return <Pressable testID="confirm-date" onPress={handleConfirm} />;
+  return (
+    <Pressable
+      testID="confirm-date"
+      // Passing the data from `fireEvent` (which will be a Date) to the `handleConfirm` just to control chosen date
+      onPress={(date: unknown) => handleConfirm(date as Date)}
+    />
+  );
 };
 
 export default MockDatePicker;
