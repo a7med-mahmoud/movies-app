@@ -40,7 +40,7 @@ const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie }) => {
         style={StyleSheet.absoluteFill}>
         <View style={[dimensions, styles.poster]}>
           <FastImage
-            source={{ uri: getImage(movie.poster_path, movie.isLocal) }}
+            source={getImage(movie.poster_path, movie.isLocal)}
             style={StyleSheet.absoluteFill}
           />
         </View>

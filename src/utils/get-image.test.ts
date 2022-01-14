@@ -11,7 +11,9 @@ describe('getImage util', () => {
     it('returns appends image base URL', () => {
       const image = getImage('/image.jpg');
 
-      expect(image).toBe(IMAGE_BASE_URL + '/image.jpg');
+      expect(image).toEqual({
+        uri: IMAGE_BASE_URL + '/image.jpg',
+      });
     });
   });
 
@@ -25,7 +27,7 @@ describe('getImage util', () => {
     it('returns same image path', () => {
       const image = getImage('/images/hey.jpg', true);
 
-      expect(image).toBe('/images/hey.jpg');
+      expect(image).toEqual({ uri: '/images/hey.jpg' });
     });
   });
 });
