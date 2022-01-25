@@ -10,7 +10,7 @@ export type MoviesParamList = {
   MovieDetails: { movie: Movie };
 };
 
-const Stack = createSharedElementStackNavigator();
+const Stack = createSharedElementStackNavigator<MoviesParamList>();
 
 const MoviesNavigator = () => {
   return (
